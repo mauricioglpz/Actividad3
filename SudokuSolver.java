@@ -2,23 +2,33 @@ package actividad3;
 
 public class SudokuSolver {
 
-    // esta seria la función principal para resolver Sudoku
+    // esta sería la función principal para resolver Sudoku
     public static boolean solveSudoku(int[][] board) {
         for (int fila = 0; fila < 9; fila++) {
             for (int col = 0; col < 9; col++) {
                 // Si la celda está vacía
                 if (board[fila][col] == 0) {
-                    // Probar números del 1 al 9
+                    // probar números del 1 al 9
                     for (int num = 1; num <= 9; num++) {
                         if (esSeguro(board, fila, col, num)) {
                             board[fila][col] = num;
+
+                            // aqui se mouestra el tablero en cada paso
+                            System.out.println("Colocando " + num + " en [" + fila + "," + col + "]");
+                            imprimirSudoku(board);
+                            System.out.println("----------------------------------");
 
                             // Llamada recursiva
                             if (solveSudoku(board)) {
                                 return true;
                             }
 
+                            // Si es que no funcionó, se borra 
                             board[fila][col] = 0;
+
+                            System.out.println("Retrocediendo en [" + fila + "," + col + "]");
+                            imprimirSudoku(board);
+                            System.out.println("----------------------------------");
                         }
                     }
                     return false; // esto es en caso de que no cabe ningún número
@@ -76,7 +86,11 @@ public class SudokuSolver {
             System.out.println("Sudoku resuelto:");
             imprimirSudoku(board);
         } else {
-            System.out.println("No se puede resolver este Sudoku.");
+            System.out.println("no se puede resolver este Sudoku.");
+        }
+    }
+}
+
         }
     }
 }
